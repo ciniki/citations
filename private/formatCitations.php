@@ -34,9 +34,6 @@ function ciniki_citations_formatCitations($ciniki, $business_id, $citations) {
             if( $citation['pages'] != '' ) {
                 $citations[$cid]['citation_text'] .= ($citations[$cid]['citation_text']!=''?', ':'') . 'pg: ' . $citation['pages'];
             }
-            if( $citation['notes'] != '' ) {
-                $citations[$cid]['citation_text'] .= ($citations[$cid]['citation_text']!=''?', ':'') . $citation['notes'];
-            }
         }
 
         //
@@ -55,9 +52,6 @@ function ciniki_citations_formatCitations($ciniki, $business_id, $citations) {
             if( $citation['published_date'] != '' ) {
                 $citations[$cid]['citation_text'] .= ($citations[$cid]['citation_text']!=''?', ':'') . $citation['published_date'];
             }
-            if( $citation['notes'] != '' ) {
-                $citations[$cid]['citation_text'] .= ($citations[$cid]['citation_text']!=''?', ':'') . $citation['notes'];
-            }
         }
 
         // 
@@ -73,9 +67,6 @@ function ciniki_citations_formatCitations($ciniki, $business_id, $citations) {
             if( $citation['url'] != '' ) {
                 $citations[$cid]['citation_text'] .= ($citations[$cid]['citation_text']!=''?', ':'') . $citation['url'];
             }
-            if( $citation['notes'] != '' ) {
-                $citations[$cid]['citation_text'] .= ($citations[$cid]['citation_text']!=''?', ':'') . $citation['notes'];
-            }
         }
 
 
@@ -88,9 +79,6 @@ function ciniki_citations_formatCitations($ciniki, $business_id, $citations) {
             }
             if( $citation['date_accessed'] != '' ) {
                 $citations[$cid]['citation_text'] .= ($citations[$cid]['citation_text']!=''?', ':'') . $citation['date_accessed'];
-            }
-            if( $citation['notes'] != '' ) {
-                $citations[$cid]['citation_text'] .= ($citations[$cid]['citation_text']!=''?', ':'') . $citation['notes'];
             }
         }
     }

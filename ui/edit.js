@@ -193,7 +193,7 @@ function ciniki_citations_edit() {
 	};
 
 	this.citationDelete = function() {
-		if( confirm('Are you sure you want to delete this note?') ) {
+		if( confirm('Are you sure you want to delete this citation?') ) {
 			M.api.getJSONCb('ciniki.citations.citationDelete', {'business_id':M.curBusinessID, 
 				'citation_id':this.citation.citation_id}, function(rsp) {
 					if( rsp.stat != 'ok' ) {
