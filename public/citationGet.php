@@ -8,8 +8,8 @@
 // ---------
 // api_key:
 // auth_token:
-// business_id: 		The ID of the business to get the citation from.
-// citation_id:			The ID of the citation to get.
+// business_id:         The ID of the business to get the citation from.
+// citation_id:         The ID of the citation to get.
 // 
 // Returns
 // -------
@@ -38,19 +38,19 @@ function ciniki_citations_citationGet($ciniki) {
         return $rc;
     }   
 
-	//
-	// Load the business intl settings
-	//
-	ciniki_core_loadMethod($ciniki, 'ciniki', 'businesses', 'private', 'intlSettings');
-	$rc = ciniki_businesses_intlSettings($ciniki, $args['business_id']);
-	if( $rc['stat'] != 'ok' ) {
-		return $rc;
-	}
-	$intl_timezone = $rc['settings']['intl-default-timezone'];
+    //
+    // Load the business intl settings
+    //
+    ciniki_core_loadMethod($ciniki, 'ciniki', 'businesses', 'private', 'intlSettings');
+    $rc = ciniki_businesses_intlSettings($ciniki, $args['business_id']);
+    if( $rc['stat'] != 'ok' ) {
+        return $rc;
+    }
+    $intl_timezone = $rc['settings']['intl-default-timezone'];
 
-	ciniki_core_loadMethod($ciniki, 'ciniki', 'core', 'private', 'dbQuote');
-	ciniki_core_loadMethod($ciniki, 'ciniki', 'core', 'private', 'dbHashQueryTree');
-	ciniki_core_loadMethod($ciniki, 'ciniki', 'users', 'private', 'dateFormat');
+    ciniki_core_loadMethod($ciniki, 'ciniki', 'core', 'private', 'dbQuote');
+    ciniki_core_loadMethod($ciniki, 'ciniki', 'core', 'private', 'dbHashQueryTree');
+    ciniki_core_loadMethod($ciniki, 'ciniki', 'users', 'private', 'dateFormat');
 
     //
     // Setup the default citation
@@ -75,7 +75,7 @@ function ciniki_citations_citationGet($ciniki) {
     //
     // Get the citation
     //
-	$date_format = ciniki_users_dateFormat($ciniki);
+    $date_format = ciniki_users_dateFormat($ciniki);
     $strsql = "SELECT ciniki_citations.id, "
         . "ciniki_citations.object, "
         . "ciniki_citations.object_id, "
@@ -106,6 +106,6 @@ function ciniki_citations_citationGet($ciniki) {
     }
     $citation = $rc['citations'][0]['citation'];
 
-	return array('stat'=>'ok', 'citation'=>$citation);
+    return array('stat'=>'ok', 'citation'=>$citation);
 }
 ?>

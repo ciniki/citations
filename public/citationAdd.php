@@ -8,8 +8,8 @@
 // ---------
 // api_key:
 // auth_token:
-// business_id:		The ID of the business to add the citation to.  The user must
-//					an owner of the business.
+// business_id:     The ID of the business to add the citation to.  The user must
+//                  an owner of the business.
 //
 // 
 // Returns
@@ -50,43 +50,43 @@ function ciniki_citations_citationAdd(&$ciniki) {
         return $rc;
     }   
 
-	//  
-	// Turn off autocommit
-	//  
-	ciniki_core_loadMethod($ciniki, 'ciniki', 'core', 'private', 'dbTransactionStart');
-	ciniki_core_loadMethod($ciniki, 'ciniki', 'core', 'private', 'dbTransactionRollback');
-	ciniki_core_loadMethod($ciniki, 'ciniki', 'core', 'private', 'dbTransactionCommit');
-	ciniki_core_loadMethod($ciniki, 'ciniki', 'core', 'private', 'dbQuote');
-	$rc = ciniki_core_dbTransactionStart($ciniki, 'ciniki.citations');
-	if( $rc['stat'] != 'ok' ) { 
-		return $rc;
-	}   
+    //  
+    // Turn off autocommit
+    //  
+    ciniki_core_loadMethod($ciniki, 'ciniki', 'core', 'private', 'dbTransactionStart');
+    ciniki_core_loadMethod($ciniki, 'ciniki', 'core', 'private', 'dbTransactionRollback');
+    ciniki_core_loadMethod($ciniki, 'ciniki', 'core', 'private', 'dbTransactionCommit');
+    ciniki_core_loadMethod($ciniki, 'ciniki', 'core', 'private', 'dbQuote');
+    $rc = ciniki_core_dbTransactionStart($ciniki, 'ciniki.citations');
+    if( $rc['stat'] != 'ok' ) { 
+        return $rc;
+    }   
 
-	//
-	// Add the citation
-	//
-	ciniki_core_loadMethod($ciniki, 'ciniki', 'core', 'private', 'objectAdd');
-	$rc = ciniki_core_objectAdd($ciniki, $args['business_id'], 'ciniki.citations.citation', $args);
-	if( $rc['stat'] != 'ok' ) {	
-		return $rc;
-	}
-	$citation_id = $rc['id'];
+    //
+    // Add the citation
+    //
+    ciniki_core_loadMethod($ciniki, 'ciniki', 'core', 'private', 'objectAdd');
+    $rc = ciniki_core_objectAdd($ciniki, $args['business_id'], 'ciniki.citations.citation', $args);
+    if( $rc['stat'] != 'ok' ) { 
+        return $rc;
+    }
+    $citation_id = $rc['id'];
 
-	//
-	// Commit the database changes
-	//
+    //
+    // Commit the database changes
+    //
     $rc = ciniki_core_dbTransactionCommit($ciniki, 'ciniki.citations');
-	if( $rc['stat'] != 'ok' ) {
-		return $rc;
-	}
+    if( $rc['stat'] != 'ok' ) {
+        return $rc;
+    }
 
-	//
-	// Update the last_change date in the business modules
-	// Ignore the result, as we don't want to stop user updates if this fails.
-	//
-	ciniki_core_loadMethod($ciniki, 'ciniki', 'businesses', 'private', 'updateModuleChangeDate');
-	ciniki_businesses_updateModuleChangeDate($ciniki, $args['business_id'], 'ciniki', 'citations');
+    //
+    // Update the last_change date in the business modules
+    // Ignore the result, as we don't want to stop user updates if this fails.
+    //
+    ciniki_core_loadMethod($ciniki, 'ciniki', 'businesses', 'private', 'updateModuleChangeDate');
+    ciniki_businesses_updateModuleChangeDate($ciniki, $args['business_id'], 'ciniki', 'citations');
 
-	return array('stat'=>'ok', 'id'=>$citation_id);
+    return array('stat'=>'ok', 'id'=>$citation_id);
 }
 ?>

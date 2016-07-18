@@ -7,8 +7,8 @@
 // Arguments
 // ---------
 // ciniki:
-// business_id:			The business ID to check the session user against.
-// method:				The requested method.
+// business_id:         The business ID to check the session user against.
+// method:              The requested method.
 //
 // Returns
 // -------
