@@ -102,7 +102,7 @@ function ciniki_citations_citationGet($ciniki) {
         return $rc;
     }
     if( !isset($rc['citations']) ) {
-        return array('stat'=>'ok', 'err'=>array('pkg'=>'ciniki', 'code'=>'2696', 'msg'=>'Unable to find citation'));
+        return array('stat'=>'ok', 'err'=>array('code'=>'ciniki.citations.8', 'msg'=>'Unable to find citation'));
     }
     $citation = $rc['citations'][0]['citation'];
 

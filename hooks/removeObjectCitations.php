@@ -15,10 +15,10 @@ function ciniki_citations_hooks_removeObjectCitations($ciniki, $business_id, $ar
     // Check object was passed, object_id is optional
     //
     if( !isset($args['object']) ) {
-        return array('stat'=>'fail', 'err'=>array('pkg'=>'ciniki', 'code'=>'2694', 'msg'=>'No object specified'));
+        return array('stat'=>'fail', 'err'=>array('code'=>'ciniki.citations.2', 'msg'=>'No object specified'));
     }
     if( !isset($args['object_id']) ) {
-        return array('stat'=>'fail', 'err'=>array('pkg'=>'ciniki', 'code'=>'2695', 'msg'=>'No object specified'));
+        return array('stat'=>'fail', 'err'=>array('code'=>'ciniki.citations.3', 'msg'=>'No object specified'));
     }
 
     $strsql = "SELECT id, uuid "

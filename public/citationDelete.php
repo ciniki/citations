@@ -47,7 +47,7 @@ function ciniki_citations_citationDelete(&$ciniki) {
         return $rc;
     }
     if( !isset($rc['item']) ) {
-        return array('stat'=>'fail', 'err'=>array('pkg'=>'ciniki', 'code'=>'2697', 'msg'=>'Citation does not exist'));
+        return array('stat'=>'fail', 'err'=>array('code'=>'ciniki.citations.7', 'msg'=>'Citation does not exist'));
     }
     $item = $rc['item'];
 

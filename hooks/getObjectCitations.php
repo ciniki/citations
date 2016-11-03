@@ -15,7 +15,7 @@ function ciniki_citations_hooks_getObjectCitations($ciniki, $business_id, $args)
     // Check object was passed, object_id is optional
     //
     if( !isset($args['object']) ) {
-        return array('stat'=>'fail', 'err'=>array('pkg'=>'ciniki', 'code'=>'2693', 'msg'=>'No object specified'));
+        return array('stat'=>'fail', 'err'=>array('code'=>'ciniki.citations.1', 'msg'=>'No object specified'));
     }
 
     //
