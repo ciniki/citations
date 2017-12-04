@@ -7,14 +7,14 @@
 // Arguments
 // ---------
 // ciniki:
-// business_id:         The business ID to check the session user against.
+// tnid:         The tenant ID to check the session user against.
 // method:              The requested method.
 //
 // Returns
 // -------
 // <rsp stat='ok' />
 //
-function ciniki_citations_formatCitations($ciniki, $business_id, $citations) {
+function ciniki_citations_formatCitations($ciniki, $tnid, $citations) {
 
     foreach($citations as $cid => $citation) {
         $citations[$cid]['citation_text'] = '';

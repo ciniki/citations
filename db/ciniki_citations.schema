@@ -8,7 +8,7 @@
 # ------
 # id:               The ID assigned to the citation.
 # uuid:             The Universal Unique ID.
-# business_id:      The business the citation is attached to.
+# tnid:             The tenant the citation is attached to.
 #
 # object:           The object this citation refers to.
 # object_id:        The ID of the object the citation refers to.
@@ -56,7 +56,7 @@
 create table ciniki_citations (
     id int not null auto_increment,
     uuid char(36) not null,
-    business_id int not null,
+    tnid int not null,
     object varchar(250) not null,
     object_id varchar(250) not null,
     citation_type tinyint unsigned not null,
@@ -72,5 +72,5 @@ create table ciniki_citations (
     last_updated datetime not null,
     primary key (id),
     unique index (uuid),
-    index sync (business_id, uuid, last_updated)
+    index sync (tnid, uuid, last_updated)
 ) ENGINE='InnoDB', COMMENT='v1.01';

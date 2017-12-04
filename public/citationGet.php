@@ -8,7 +8,7 @@
 // ---------
 // api_key:
 // auth_token:
-// business_id:         The ID of the business to get the citation from.
+// tnid:         The ID of the tenant to get the citation from.
 // citation_id:         The ID of the citation to get.
 // 
 // Returns
@@ -20,7 +20,7 @@ function ciniki_citations_citationGet($ciniki) {
     //  
     ciniki_core_loadMethod($ciniki, 'ciniki', 'core', 'private', 'prepareArgs');
     $rc = ciniki_core_prepareArgs($ciniki, 'no', array(
-        'business_id'=>array('required'=>'yes', 'blank'=>'no', 'name'=>'Business'), 
+        'tnid'=>array('required'=>'yes', 'blank'=>'no', 'name'=>'Tenant'), 
         'citation_id'=>array('required'=>'yes', 'blank'=>'no', 'name'=>'Citation'), 
         )); 
     if( $rc['stat'] != 'ok' ) { 
@@ -30,19 +30,19 @@ function ciniki_citations_citationGet($ciniki) {
     
     //  
     // Make sure this module is activated, and
-    // check permission to run this function for this business
+    // check permission to run this function for this tenant
     //  
     ciniki_core_loadMethod($ciniki, 'ciniki', 'citations', 'private', 'checkAccess');
-    $rc = ciniki_citations_checkAccess($ciniki, $args['business_id'], 'ciniki.citations.citationGet'); 
+    $rc = ciniki_citations_checkAccess($ciniki, $args['tnid'], 'ciniki.citations.citationGet'); 
     if( $rc['stat'] != 'ok' ) { 
         return $rc;
     }   
 
     //
-    // Load the business intl settings
+    // Load the tenant intl settings
     //
-    ciniki_core_loadMethod($ciniki, 'ciniki', 'businesses', 'private', 'intlSettings');
-    $rc = ciniki_businesses_intlSettings($ciniki, $args['business_id']);
+    ciniki_core_loadMethod($ciniki, 'ciniki', 'tenants', 'private', 'intlSettings');
+    $rc = ciniki_tenants_intlSettings($ciniki, $args['tnid']);
     if( $rc['stat'] != 'ok' ) {
         return $rc;
     }
@@ -89,7 +89,7 @@ function ciniki_citations_citationGet($ciniki) {
         . "DATE_FORMAT(date_accessed, '" . ciniki_core_dbQuote($ciniki, $date_format) . "') AS date_accessed, "
         . "ciniki_citations.notes "
         . "FROM ciniki_citations "
-        . "WHERE ciniki_citations.business_id = '" . ciniki_core_dbQuote($ciniki, $args['business_id']) . "' "
+        . "WHERE ciniki_citations.tnid = '" . ciniki_core_dbQuote($ciniki, $args['tnid']) . "' "
         . "AND ciniki_citations.id = '" . ciniki_core_dbQuote($ciniki, $args['citation_id']) . "' "
         . "";
 

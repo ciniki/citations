@@ -9,7 +9,7 @@
 // Returns
 // -------
 //
-function ciniki_citations_hooks_removeObjectCitations($ciniki, $business_id, $args) {
+function ciniki_citations_hooks_removeObjectCitations($ciniki, $tnid, $args) {
 
     //
     // Check object was passed, object_id is optional
@@ -23,7 +23,7 @@ function ciniki_citations_hooks_removeObjectCitations($ciniki, $business_id, $ar
 
     $strsql = "SELECT id, uuid "
         . "FROM ciniki_citations "
-        . "WHERE ciniki_citations.business_id = '" . ciniki_core_dbQuote($ciniki, $business_id) . "' "
+        . "WHERE ciniki_citations.tnid = '" . ciniki_core_dbQuote($ciniki, $tnid) . "' "
         . "AND ciniki_citations.object = '" . ciniki_core_dbQuote($ciniki, $args['object']) . "' "
         . "AND ciniki_citations.object_id = '" . ciniki_core_dbQuote($ciniki, $args['object_id']) . "' "
         . "";
@@ -37,7 +37,7 @@ function ciniki_citations_hooks_removeObjectCitations($ciniki, $business_id, $ar
     if( isset($rc['rows']) ) {
         $citations = $rc['rows'];
         foreach($citations as $citation) {
-            $rc = ciniki_core_objectDelete($ciniki, $business_id, 'ciniki.citations.citation', $citation['id'], $citation['uuid'], 0x04);
+            $rc = ciniki_core_objectDelete($ciniki, $tnid, 'ciniki.citations.citation', $citation['id'], $citation['uuid'], 0x04);
             if( $rc['stat'] != 'ok' ) {
                 return $rc;
             }

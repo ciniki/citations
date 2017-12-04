@@ -9,7 +9,7 @@
 // Returns
 // -------
 //
-function ciniki_citations_hooks_getObjectCitations($ciniki, $business_id, $args) {
+function ciniki_citations_hooks_getObjectCitations($ciniki, $tnid, $args) {
 
     //
     // Check object was passed, object_id is optional
@@ -19,10 +19,10 @@ function ciniki_citations_hooks_getObjectCitations($ciniki, $business_id, $args)
     }
 
     //
-    // Load the business intl settings
+    // Load the tenant intl settings
     //
-    ciniki_core_loadMethod($ciniki, 'ciniki', 'businesses', 'private', 'intlSettings');
-    $rc = ciniki_businesses_intlSettings($ciniki, $business_id);
+    ciniki_core_loadMethod($ciniki, 'ciniki', 'tenants', 'private', 'intlSettings');
+    $rc = ciniki_tenants_intlSettings($ciniki, $tnid);
     if( $rc['stat'] != 'ok' ) {
         return $rc;
     }
@@ -42,7 +42,7 @@ function ciniki_citations_hooks_getObjectCitations($ciniki, $business_id, $args)
         . "DATE_FORMAT(date_accessed, '" . ciniki_core_dbQuote($ciniki, $date_format) . "') AS date_accessed, "
         . "notes "
         . "FROM ciniki_citations "
-        . "WHERE ciniki_citations.business_id = '" . ciniki_core_dbQuote($ciniki, $business_id) . "' "
+        . "WHERE ciniki_citations.tnid = '" . ciniki_core_dbQuote($ciniki, $tnid) . "' "
         . "AND ciniki_citations.object = '" . ciniki_core_dbQuote($ciniki, $args['object']) . "' "
         . "";
     if( isset($args['object_id']) ) {
@@ -64,7 +64,7 @@ function ciniki_citations_hooks_getObjectCitations($ciniki, $business_id, $args)
         return array('stat'=>'ok', 'citations'=>array());
     }
     ciniki_core_loadMethod($ciniki, 'ciniki', 'citations', 'private', 'formatCitations');
-    $rc = ciniki_citations_formatCitations($ciniki, $business_id, $rc['citations']);
+    $rc = ciniki_citations_formatCitations($ciniki, $tnid, $rc['citations']);
     if( $rc['stat'] != 'ok' ) {
         return $rc;
     }

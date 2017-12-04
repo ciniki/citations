@@ -86,7 +86,7 @@ function ciniki_citations_edit() {
         this.citation.sections = this.citation.forms.book;
         this.citation.liveSearchCb = function(s, i, value) {
             if( i == 'author' || i == 'title' || i == 'source_name' ) {
-                M.api.getJSONBgCb('ciniki.citations.citationSearchField', {'business_id':M.curBusinessID, 'citation_type':this.formtabs.tabs[this.formtab].field_id, 'field':i, 'start_needle':value, 'limit':15},
+                M.api.getJSONBgCb('ciniki.citations.citationSearchField', {'tnid':M.curTenantID, 'citation_type':this.formtabs.tabs[this.formtab].field_id, 'field':i, 'start_needle':value, 'limit':15},
                     function(rsp) {
                         M.ciniki_citations_edit.citation.liveSearchShow(s, i, M.gE(M.ciniki_citations_edit.citation.panelUID + '_' + i), rsp.results);
                     });
@@ -123,7 +123,7 @@ function ciniki_citations_edit() {
             return ''; 
         };
         this.citation.fieldHistoryArgs = function(s, i) {
-            return {'method':'ciniki.citations.citationHistory', 'args':{'business_id':M.curBusinessID, 
+            return {'method':'ciniki.citations.citationHistory', 'args':{'tnid':M.curTenantID, 
                 'citation_id':this.citation_id, 'field':i}};
         };
         this.citation.addButton('save', 'Save', 'M.ciniki_citations_edit.citationSave();');
@@ -150,7 +150,7 @@ function ciniki_citations_edit() {
         if( object != null ) { this.citation.object = object; }
         if( object_id != null ) { this.citation.object_id = object_id; }
         if( cid != null ) { this.citation.citation_id = cid; }
-        M.api.getJSONCb('ciniki.citations.citationGet', {'business_id':M.curBusinessID, 'citation_id':this.citation.citation_id}, function(rsp) {
+        M.api.getJSONCb('ciniki.citations.citationGet', {'tnid':M.curTenantID, 'citation_id':this.citation.citation_id}, function(rsp) {
             if( rsp.stat != 'ok' ) {
                 M.api.err(rsp);
                 return false;
@@ -166,7 +166,7 @@ function ciniki_citations_edit() {
         if( this.citation.citation_id > 0 ) {
             var c = this.citation.serializeForm('no');
             if( c != null ) {
-                var rsp = M.api.postJSONCb('ciniki.citations.citationUpdate', {'business_id':M.curBusinessID, 'citation_id':this.citation.citation_id}, c,
+                var rsp = M.api.postJSONCb('ciniki.citations.citationUpdate', {'tnid':M.curTenantID, 'citation_id':this.citation.citation_id}, c,
                     function(rsp) {
                         if( rsp.stat != 'ok' ) {
                             M.api.err(rsp);
@@ -180,7 +180,7 @@ function ciniki_citations_edit() {
             }
         } else {
             var c = this.citation.serializeForm('yes');
-            M.api.postJSONCb('ciniki.citations.citationAdd', {'business_id':M.curBusinessID, 
+            M.api.postJSONCb('ciniki.citations.citationAdd', {'tnid':M.curTenantID, 
                 'object':this.citation.object, 'object_id':this.citation.object_id}, c, function(rsp) {
                     if( rsp.stat != 'ok' ) {
                         M.api.err(rsp);
@@ -194,7 +194,7 @@ function ciniki_citations_edit() {
 
     this.citationDelete = function() {
         if( confirm('Are you sure you want to delete this citation?') ) {
-            M.api.getJSONCb('ciniki.citations.citationDelete', {'business_id':M.curBusinessID, 
+            M.api.getJSONCb('ciniki.citations.citationDelete', {'tnid':M.curTenantID, 
                 'citation_id':this.citation.citation_id}, function(rsp) {
                     if( rsp.stat != 'ok' ) {
                         M.api.err(rsp);

@@ -16,7 +16,7 @@ function ciniki_citations_citationDelete(&$ciniki) {
     //  
     ciniki_core_loadMethod($ciniki, 'ciniki', 'core', 'private', 'prepareArgs');
     $rc = ciniki_core_prepareArgs($ciniki, 'no', array(
-        'business_id'=>array('required'=>'yes', 'blank'=>'no', 'name'=>'Business'), 
+        'tnid'=>array('required'=>'yes', 'blank'=>'no', 'name'=>'Tenant'), 
         'citation_id'=>array('required'=>'yes', 'blank'=>'no', 'name'=>'Citation'),
         )); 
     if( $rc['stat'] != 'ok' ) { 
@@ -26,10 +26,10 @@ function ciniki_citations_citationDelete(&$ciniki) {
 
     //  
     // Make sure this module is activated, and
-    // check permission to run this function for this business
+    // check permission to run this function for this tenant
     //  
     ciniki_core_loadMethod($ciniki, 'ciniki', 'citations', 'private', 'checkAccess');
-    $rc = ciniki_citations_checkAccess($ciniki, $args['business_id'], 'ciniki.citations.citationDelete'); 
+    $rc = ciniki_citations_checkAccess($ciniki, $args['tnid'], 'ciniki.citations.citationDelete'); 
     if( $rc['stat'] != 'ok' ) { 
         return $rc;
     }   
@@ -39,7 +39,7 @@ function ciniki_citations_citationDelete(&$ciniki) {
     //
     $strsql = "SELECT id, uuid "
         . "FROM ciniki_citations "
-        . "WHERE business_id = '" . ciniki_core_dbQuote($ciniki, $args['business_id']) . "' "
+        . "WHERE tnid = '" . ciniki_core_dbQuote($ciniki, $args['tnid']) . "' "
         . "AND id = '" . ciniki_core_dbQuote($ciniki, $args['citation_id']) . "' "
         . "";
     $rc = ciniki_core_dbHashQuery($ciniki, $strsql, 'ciniki.citations', 'item');
@@ -55,6 +55,6 @@ function ciniki_citations_citationDelete(&$ciniki) {
     // Delete the object
     //
     ciniki_core_loadMethod($ciniki, 'ciniki', 'core', 'private', 'objectDelete');
-    return ciniki_core_objectDelete($ciniki, $args['business_id'], 'ciniki.citations.citation', $args['citation_id'], $item['uuid'], 0x07);
+    return ciniki_core_objectDelete($ciniki, $args['tnid'], 'ciniki.citations.citation', $args['citation_id'], $item['uuid'], 0x07);
 }
 ?>

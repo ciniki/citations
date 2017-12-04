@@ -10,7 +10,7 @@
 // ---------
 // api_key:
 // auth_token:
-// business_id:         The ID of the business to get the details for.
+// tnid:         The ID of the tenant to get the details for.
 // citation_id:         The ID of the citation to get the history for.
 // field:               The field to get the history for. This can be any of the elements 
 //                      returned by the ciniki.citations.get method.
@@ -28,7 +28,7 @@ function ciniki_citations_citationHistory($ciniki) {
     //
     ciniki_core_loadMethod($ciniki, 'ciniki', 'core', 'private', 'prepareArgs');
     $rc = ciniki_core_prepareArgs($ciniki, 'no', array(
-        'business_id'=>array('required'=>'yes', 'blank'=>'no', 'name'=>'Business'), 
+        'tnid'=>array('required'=>'yes', 'blank'=>'no', 'name'=>'Tenant'), 
         'citation_id'=>array('required'=>'yes', 'blank'=>'no', 'name'=>'Plant'), 
         'field'=>array('required'=>'yes', 'blank'=>'no', 'name'=>'field'), 
         ));
@@ -38,16 +38,16 @@ function ciniki_citations_citationHistory($ciniki) {
     $args = $rc['args'];
     
     //
-    // Check access to business_id as owner, or sys admin
+    // Check access to tnid as owner, or sys admin
     //
     ciniki_core_loadMethod($ciniki, 'ciniki', 'citations', 'private', 'checkAccess');
-    $rc = ciniki_citations_checkAccess($ciniki, $args['business_id'], 'ciniki.citations.citationHistory');
+    $rc = ciniki_citations_checkAccess($ciniki, $args['tnid'], 'ciniki.citations.citationHistory');
     if( $rc['stat'] != 'ok' ) {
         return $rc;
     }
 
     ciniki_core_loadMethod($ciniki, 'ciniki', 'core', 'private', 'dbGetModuleHistory');
     return ciniki_core_dbGetModuleHistory($ciniki, 'ciniki.citations', 'ciniki_citation_history', 
-        $args['business_id'], 'ciniki_citations', $args['citation_id'], $args['field']);
+        $args['tnid'], 'ciniki_citations', $args['citation_id'], $args['field']);
 }
 ?>
