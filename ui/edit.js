@@ -139,7 +139,7 @@ function ciniki_citations_edit() {
         //
         var appContainer = M.createContainer(appPrefix, 'ciniki_citations_edit', 'yes');
         if( appContainer == null ) {
-            alert('App Error');
+            M.alert('App Error');
             return false;
         }
 
@@ -193,15 +193,15 @@ function ciniki_citations_edit() {
     };
 
     this.citationDelete = function() {
-        if( confirm('Are you sure you want to delete this citation?') ) {
+        M.confirm('Are you sure you want to delete this citation?',null,function() {
             M.api.getJSONCb('ciniki.citations.citationDelete', {'tnid':M.curTenantID, 
-                'citation_id':this.citation.citation_id}, function(rsp) {
+                'citation_id':M.ciniki_citations_edit.citation.citation_id}, function(rsp) {
                     if( rsp.stat != 'ok' ) {
                         M.api.err(rsp);
                         return false;
                     }
                     M.ciniki_citations_edit.citation.close();
                 });
-        }
+        });
     };
 }
